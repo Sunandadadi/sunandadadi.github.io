@@ -7,34 +7,32 @@
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.12.2"></script>
   </head>
   <body>
+      <h1>
+      Abandoned building in the State of Illinois
+      </h1>
       <p>
-      Here's my first paragraph!
-      </p>
-      <p>
-      This is an example paragraph. Anything in the <strong>body</strong>
-      tag will appear on the page, just like this <strong>p</strong>
-      tag and its contents.
+      This graph below depicts the total number of abandoned buildings with respect to their corresponding zipcodes in the state of Illinois and
       </p>
       <div id="viz">
       </div>
       <script>
 var vlSpec = {
-    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-    "data": {
-        "values": [
-            {"A": 10, "B": 21, "C": 2},
-            {"A": 30, "B": 20, "C": 4},
-            {"A": 25, "B": 15, "C": 6},
-            {"A": 5, "B": 30, "C": 8}
-        ]
-    },
-    "mark": "circle",
-    "encoding": {
-        "x": { "field": "A", "type": "quantitative"},
-        "y": { "field": "B", "type": "quantitative"},
-        "size": { "field": "C", "type": "quantitative"}
-    }
-};
+          "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+          "data": {
+            "url": "https://gist.githubusercontent.com/Sunandadadi/db4b2506a859b46fe460fcfef950bff7/raw/fdb859e103ac82e79f52c8f9c2275ef264e6317a/building_inventory.json"
+          },
+          "transform": [{"filter": {"field": "Bldg Status", "equal": "Abandon"}}],
+          "mark": "bar",
+          "encoding": {
+            "x": {"field": "Zip code", "type": "ordinal"},
+            "y": {"aggregate": "count", "type": "quantitative"},
+            "color": {
+              "aggregate": "count",
+              "field": "Abandoned buildings",
+              "scale": {"type": "log"}
+            }
+          }
+        };
         vegaEmbed('#viz', vlSpec);
       </script>
   </body>

@@ -1,37 +1,39 @@
-## Welcome to GitHub Pages
-
-You can use the [editor on GitHub](https://github.com/Sunandadadi/sunandadadi.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Sunandadadi/sunandadadi.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+<!doctype html>
+<html>
+  <head>
+    <title>This is the title of the webpage!</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.16.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.16.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.12.2"></script>
+  </head>
+  <body>
+      <h1>
+      Abandoned building in the State of Illinois
+      </h1>
+      <p>
+      This graph below depicts the total number of abandoned buildings with respect to their corresponding zipcodes in the state of Illinois and
+      </p>
+      <div id="viz">
+      </div>
+      <script>
+var vlSpec = {
+          "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+          "data": {
+            "url": "https://gist.githubusercontent.com/Sunandadadi/db4b2506a859b46fe460fcfef950bff7/raw/fdb859e103ac82e79f52c8f9c2275ef264e6317a/building_inventory.json"
+          },
+          "transform": [{"filter": {"field": "Bldg Status", "equal": "Abandon"}}],
+          "mark": "bar",
+          "encoding": {
+            "x": {"field": "Zip code", "type": "ordinal"},
+            "y": {"aggregate": "count", "type": "quantitative"},
+            "color": {
+              "aggregate": "count",
+              "field": "Abandoned buildings",
+              "scale": {"type": "log"}
+            }
+          }
+        };
+        vegaEmbed('#viz', vlSpec);
+      </script>
+  </body>
+</html>
